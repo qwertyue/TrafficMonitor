@@ -12,7 +12,7 @@ jobs:
         uses: microsoft/setup-msbuild@v2
   
       - name: Build Release (lite) x64
-        run: msbuild TrafficMonitor/TrafficMonitor.sln /t:Build /p:Configuration="Release (lite)" /p:Platform=x64 /p:PlatformToolset=v143
+        run: msbuild TrafficMonitor.sln /t:Build /p:Configuration="Release (lite)" /p:Platform=x64 /p:PlatformToolset=v143
   
       - name: Get current time
         uses: josStorer/get-current-time@v2.0.2
