@@ -14,8 +14,10 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
       
-    - name: Run msbuild
-      run: msbuild TrafficMonitor.sln /t:Build /p:Configuration="Release (lite)" /p:Platform=x64
+    - name: Build Release (lite)
+      run: |
+        cd TrafficMonitor
+        msbuild TrafficMonitor.sln /t:Build /p:Configuration="Release (lite)" /p:Platform=x64
       
     - name: Get current time
       uses: josStorer/get-current-time@v2.0.2
