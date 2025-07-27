@@ -936,7 +936,7 @@ void CTaskBarDlg::CalculateWindowSize()
 
 void CTaskBarDlg::SetToolTipsTopMost()
 {
-    m_tool_tips.SetWindowPos(&wndTopMost, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
+    m_tool_tips.SetWindowPos(&wndTopMost, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
 }
 
 void CTaskBarDlg::UpdateToolTips()
@@ -1026,7 +1026,7 @@ BOOL CTaskBarDlg::OnInitDialog()
     SetBackgroundColor(theApp.m_taskbar_data.back_color);
 
     //初始化鼠标提示
-    if (IsWindow(GetSafeHwnd()) && m_tool_tips.Create(this, TTS_ALWAYSTIP) && IsWindow(m_tool_tips.GetSafeHwnd()))
+    if (IsWindow(GetSafeHwnd()) && m_tool_tips.CreateEx(this, TTS_ALWAYSTIP | TTS_NOPREFIX, WS_EX_TOPMOST) && IsWindow(m_tool_tips.GetSafeHwnd()))
     {
         m_tool_tips.SetMaxTipWidth(600);
         m_tool_tips.AddTool(this, _T(""));
