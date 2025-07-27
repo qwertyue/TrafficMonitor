@@ -26,11 +26,5 @@ jobs:
       with:
         name: x64_${{ steps.current-time.outputs.formattedTime }}_TrafficMonitor
         path: |
-          Bin/x64/Release (lite)/TrafficMonitor.exe
-          Bin/x64/Release (lite)/*.dll
-
-    - name : Upload pdb files
-      uses: actions/upload-artifact@v4
-      with:
-        name: x64_${{ steps.current-time.outputs.formattedTime }}_pdb
-        path: Bin/x64/Release (lite)/*.pdb
+          Bin/x64/Release/TrafficMonitor.exe
+          Bin/x64/Release/*.dll
