@@ -12,7 +12,7 @@ jobs:
       uses: microsoft/setup-msbuild@v2
       
     - name: Run msbuild
-      run: msbuild -p:configuration="Release (lite)" -p:platform=x64 -p:platformToolset=v143
+      run: msbuild -p:configuration=release -p:platform=x64 -p:platformToolset=v143
       
     - name: Get current time
       uses: josStorer/get-current-time@v2.0.2
@@ -28,3 +28,9 @@ jobs:
         path: |
           Bin/x64/Release/TrafficMonitor.exe
           Bin/x64/Release/*.dll
+
+    - name : Upload pdb files
+      uses: actions/upload-artifact@v4
+      with:
+        name: x64_${{ steps.current-time.outputs.formattedTime }}_pdb
+        path: Bin/x64/Release/*.pdb
