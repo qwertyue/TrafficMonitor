@@ -6,18 +6,13 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout source
-      uses: actions/checkout@v3
-      with:
-        path: .  # 保持平铺结构
-
+    - uses: actions/checkout@v3
+      
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
       
-    - name: Build Release (lite)
-      run: |
-        cd TrafficMonitor
-        msbuild TrafficMonitor.sln /t:Build /p:Configuration="Release (lite)" /p:Platform=x64
+    - name: Run msbuild
+      run: msbuild -p:configuration=release -p:platform=x64 -p:platformToolset=v143
       
     - name: Get current time
       uses: josStorer/get-current-time@v2.0.2
@@ -31,11 +26,11 @@ jobs:
       with:
         name: x64_${{ steps.current-time.outputs.formattedTime }}_TrafficMonitor
         path: |
-          Bin/x64/Release (lite)/TrafficMonitor.exe
-          Bin/x64/Release (lite)/*.dll
+          Bin/x64/Release/TrafficMonitor.exe
+          Bin/x64/Release/*.dll
 
     - name : Upload pdb files
       uses: actions/upload-artifact@v4
       with:
         name: x64_${{ steps.current-time.outputs.formattedTime }}_pdb
-        path: Bin/x64/Release (lite)/*.pdb
+        path: Bin/x64/Release/*.pdb
