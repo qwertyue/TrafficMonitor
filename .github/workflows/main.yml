@@ -6,13 +6,16 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
-      
+    - name: Checkout source
+      uses: actions/checkout@v3
+      with:
+        path: .  # 保持平铺结构
+
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
       
     - name: Run msbuild
-      run: msbuild -p:configuration="Release (lite)" -p:platform=x64 -p:platformToolset=v143
+      run: msbuild TrafficMonitor.sln /t:Build /p:Configuration="Release (lite)" /p:Platform=x64
       
     - name: Get current time
       uses: josStorer/get-current-time@v2.0.2
