@@ -53,6 +53,7 @@ BEGIN_MESSAGE_MAP(CTaskBarDlg, CDialogEx)
     ON_MESSAGE(WM_EXITMENULOOP, &CTaskBarDlg::OnExitmenuloop)
     ON_MESSAGE(WM_TABLET_QUERYSYSTEMGESTURESTATUS, &CTaskBarDlg::OnTabletQuerysystemgesturestatus)
     ON_WM_MOUSEWHEEL()
+    ON_NOTIFY_EX(TTN_SHOW, 0, OnToolTipShow)
 END_MESSAGE_MAP()
 
 // CTaskBarDlg 消息处理程序
