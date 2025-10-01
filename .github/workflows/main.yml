@@ -1,0 +1,37 @@
+name: Release CI
+on: [push, workflow_dispatch]
+jobs:
+
+  x64_build:
+    runs-on: windows-latest
+  
+    steps:
+      - uses: actions/checkout@v3
+        
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+  
+      - name: Build Release (lite) x64
+        run: msbuild TrafficMonitor/TrafficMonitor.vcxproj /p:Configuration="Release (lite)" /p:Platform=x64 /p:PlatformToolset=v143
+  
+      - name: Get current time
+        uses: josStorer/get-current-time@v2.0.2
+        id: current-time
+        with:
+          format: YYYYMMDD_HHmmss
+          utcOffset: "+08:00"
+  
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: x64_lite_${{ steps.current-time.outputs.formattedTime }}_TrafficMonitor
+          path: |
+            TrafficMonitor/Bin/x64/Release (lite)/TrafficMonitor.exe
+            TrafficMonitor/Bin/x64/Release (lite)/*.dll
+  
+      - name: Upload pdb files
+        uses: actions/upload-artifact@v4
+        with:
+          name: x64_lite_${{ steps.current-time.outputs.formattedTime }}_pdb
+          path: TrafficMonitor/Bin/x64/Release (lite)/*.pdb
+
