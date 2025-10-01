@@ -1449,6 +1449,16 @@ void CTaskBarDlg::OnLButtonUp(UINT nFlags, CPoint point)
     CDialogEx::OnLButtonUp(nFlags, point);
 }
 
+BOOL CTaskBarDlg::OnToolTipShow(UINT id, NMHDR* pNMHDR, LRESULT* pResult)
+{
+    if (m_tool_tips.GetSafeHwnd())
+    {
+        m_tool_tips.SetWindowPos(&wndTopMost, 0, 0, 0, 0,
+            SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE | SWP_SHOWWINDOW);
+    }
+    return FALSE;  // 返回 FALSE 让默认处理继续
+}
+
 afx_msg LRESULT CTaskBarDlg::OnExitmenuloop(WPARAM wParam, LPARAM lParam)
 {
     m_menu_popuped = false;
